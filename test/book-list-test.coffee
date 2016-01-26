@@ -196,7 +196,6 @@ describe 'book list', ->
             room.user.say 'alice', 'hubot booklist lookup 2'
             setTimeout done, 10
 
-
           it 'and it should reply including the title and index of the book requested', ->
             expect(room.robot.emit.firstCall.args[1].content.title).equals("Index 2: The Pragmatic Programmer")
 
@@ -208,4 +207,15 @@ describe 'book list', ->
 
           it 'and it should reply including the image url of the book requested', ->
             expect(room.robot.emit.firstCall.args[1].content.thumb_url).equals("http://bigPrag")
+
+        describe 'migrates booklist to new db', ->
+
+          beforeEach (done) ->
+            room.robot.emit = sinon.spy()
+            process.env.HUBOT_BOOKLIST_DB = "http://willitconnect.abc.io"
+            room.user.say 'mary', 'hubot booklist migrate'
+            setTimeout done, 10
+
+          it 'and it should reply indicating that the DB was moved', ->
+            expect(room.robot.emit.firstCall.args[1].content.title).equals("Booklist DB moved to http://willitconnect.abc.io")
 

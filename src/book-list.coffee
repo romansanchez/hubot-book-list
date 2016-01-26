@@ -23,6 +23,7 @@ module.exports = (robot) ->
 
   TITLE_IMAGE = 'https://goo.gl/g5Itaz'
 
+  PERSIST_LOCATION = if process.env.HUBOT_BOOKLIST_DB then process.env.HUBOT_BOOKLIST_DB else "BRAIN"
 
   robot.hear /booklist initialize/i, (res) ->
     if robot.brain.get('booklist')
@@ -31,6 +32,9 @@ module.exports = (robot) ->
 
     robot.brain.set('booklist', [])
     return emitString(res, "Booklist Initialized")
+
+  robot.hear /booklist migrate/i, (res) ->
+    return emitString(res, "Booklist DB moved to #{PERSIST_LOCATION}")
 
   robot.hear /booklist add (.*)$/i, (res) ->
     rawBookToAdd = res.match[1]
