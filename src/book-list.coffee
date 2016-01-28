@@ -33,8 +33,8 @@ module.exports = (robot) ->
     robot.brain.set('booklist', [])
     return emitString(res, "Booklist Initialized")
 
-  robot.hear /booklist migrate/i, (res) ->
-    return emitString(res, "Booklist DB moved to #{PERSIST_LOCATION}")
+  #robot.hear /booklist migrate/i, (res) ->
+  #  return emitString(res, "Booklist DB moved to #{PERSIST_LOCATION}")
 
   robot.hear /booklist add (.*)$/i, (res) ->
     rawBookToAdd = res.match[1]
